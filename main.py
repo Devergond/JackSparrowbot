@@ -18,7 +18,7 @@ def handle_message(message):
         modified_link = text.replace("www.instagram.com", "ddinstagram.com").replace("instagram.com", "ddinstagram.com").split("?")[0]
         bot.send_message(
             message.chat.id,
-            f"👉 Апгрейд подъехал 🚀👇\n{modified_link} 🔗"
+            f"👉 Апгрейд подъехал 🚀👇"
         )
     else:
         bot.send_message(
@@ -26,3 +26,5 @@ def handle_message(message):
             "👉 Давай по новой, миша! 🤨 🔄"
         )
 
+print("🤖 Погнали!!!")
+bot.infinity_polling()
