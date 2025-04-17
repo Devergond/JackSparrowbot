@@ -1,30 +1,24 @@
 import os
 import telebot
 
-TOKEN = os.getenv("TOKEN")
+# Вставь сюда свой токен
+TOKEN = os.getenv("TOKEN") or "вставь_сюда_свой_токен_если_не_через_переменные"
+
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
-def start(message):
-    bot.send_message(
-        message.chat.id,
-        "Йоу, дропай свой рилс 🎥✨ — ща замутим красоту"
-    )
+def send_welcome(message):
+    bot.send_message(message.chat.id, "Йоу, дропай свой рилс 🎥✨ — ща замутим красоту")
 
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
-    text = message.text.strip()
-    if "instagram.com/reel/" in text:
-        modified_link = text.replace("www.instagram.com", "ddinstagram.com").replace("instagram.com", "ddinstagram.com").split("?")[0]
-        bot.send_message(
-            message.chat.id,
-            f"👉 Апгрейд подъехал 🚀👇"
-        )
+    if "instagram.com/reel/" in message.text:
+        # Заменяем домен на ddinstagram и убираем лишнее
+        modified_link = message.text.replace("instagram.com", "ddinstagram.com").split("?")[0]
+        bot.send_message(message.chat.id, f"👉 Апгрейд подъехал 🚀👇\n{modified_link}")
     else:
-        bot.send_message(
-            message.chat.id,
-            "👉 Давай по новой, миша! 🤨 🔄"
-        )
+        bot.send_message(message.chat.id, "👉 Давай по новой, миша! 🤨 🔄")
 
-print("🤖 Погнали!!!")
+# Запуск бота
+print("✅ Бот запущен!")
 bot.infinity_polling()
